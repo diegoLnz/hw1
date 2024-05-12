@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<?php
+require_once "SessionManager.php";
+
+SessionManager::startSession();
+
+if (SessionManager::has("username")) {
+    header("Location: Login.php");
+    exit;
+}
+?>
+
 <html lang="it">
 <head>
     <meta charset="UTF-8">
