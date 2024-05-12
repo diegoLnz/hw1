@@ -1,8 +1,8 @@
 <?php
-require '../Configs/Extensions/QueryBuilder.php';
-require '../Configs/Extensions/DbConnection.php';
-require '../Configs/Extensions/ApiExtensions.php';
-require '../Configs/Extensions/Diagnostics.php';
+require '../../Configs/Extensions/QueryBuilder.php';
+require '../../Configs/Extensions/DbConnection.php';
+require '../../Configs/Extensions/ApiExtensions.php';
+require '../../Configs/Extensions/Diagnostics.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $response = setResponse("KO", "Metodo non consentito", 405);
