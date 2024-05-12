@@ -1,0 +1,133 @@
+body{
+    background-image: url("../images/Login_Background.webp");
+    background-size: 150%;
+    background-repeat: no-repeat;
+}
+
+.login-section {
+    position: absolute;
+    top: calc(50% - var(--loginbox-height)/2);
+    left: calc(50% - var(--loginbox-width)/2);
+    width: var(--loginbox-width);
+    height: var(--loginbox-height);
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.login-form-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: calc(var(--loginbox-height) * 0.5);
+    color: var(--custom-white);
+    width: 350px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-input {
+    height: var(--login-input-height);
+    width: var(--login-input-width);
+    border-radius: 7px;
+    padding-left: var(--login-input-padding-left);
+    background-color: var(--login-input-back-color);
+    border: 0px;
+    caret-color: var(--custom-white);
+    color: var(--custom-white);
+}
+
+.login-input:focus {
+    outline: none !important;
+    border: var(--login-submit-btn-focused-border-size) solid rgb(118 118 118);
+
+    /* --==PER IMPERDIRE CHE IL BORDO INFLUENZI LA DIMENSIONE DI TUTTO IL FORM==-- */
+    width: calc(var(--login-input-width) - var(--login-submit-btn-focused-border-size) * 2);
+    height: calc(var(--login-input-height) - var(--login-submit-btn-focused-border-size) * 2);
+}
+
+.login-input + .login-input {
+    margin-top: 7px;
+}
+
+.login-submit-btn {
+    height: 3rem;
+    width: calc(100% + var(--login-input-padding-left));
+    border-radius: 7px;
+    background-color: var(--custom-white);
+    border: 0px;
+    font-weight: bold;
+    color: var(--theme-color);
+    cursor: pointer;
+}
+
+.login-submit-btn:disabled {
+    cursor: not-allowed;
+    color: var(--login-submit-btn-disabled-color);
+}
+
+.login-input + .login-submit-btn {
+    margin-top: 7px;
+}
+
+.access-label {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.forgot-pass {
+    margin-top: 20px;
+    font-size: 0.92rem;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.separer {
+    height: 0;
+    width: var(--login-input-width);
+    border-top: 0.5px solid var(--separer-border-color);
+    margin: 30px 0px ;
+}
+
+.separer span {
+    position:relative;
+    top: -10px;
+    padding: 0 20px;
+    background-color: var(--theme-color);
+    left: calc( var(--login-input-width) / 2 - 24px); /*24px deriva da 20px di padding + 4px che rappresenta la metà della larghezza della lettera o*/
+    color: var(--secondary-text-color);
+}
+
+.register-redirect-box {
+    display: flex;
+    align-items: center;
+    width: var(--login-input-width);
+    min-height: 5rem;
+    font-size: medium;
+    font-weight: bold;
+    color: var(--custom-white);
+    background-color: var(--theme-color);
+    border: 1px solid var(--separer-border-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.arrow-register {
+    fill: var(--arrow-color);
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.register-redirect-box span {
+    margin: 0 0 0 auto; /* Per 'centrare' il testo */
+}
+
