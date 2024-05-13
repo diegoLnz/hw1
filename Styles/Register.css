@@ -75,6 +75,10 @@
     margin-top: 10px;
 }
 
+.register-box-content-inputs span + input {
+    margin-top: 10px;
+}
+
 .password-container {
     width: calc(50% + var(--login-input-padding-left));
     display: flex;
@@ -137,6 +141,22 @@
 
 .login-redirect a{
     margin-left: 10px;
+}
+
+.input-feedback{
+    display: none;
+    font-size: small;
+    text-align: center;
+}
+
+.input-feedback.ok{
+    display: block;
+    color: green;
+}
+
+.input-feedback.ko{
+    display: block;
+    color: crimson;
 }
 
 @media (max-width: 550px) {

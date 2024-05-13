@@ -1,5 +1,5 @@
 <?php
-require_once "SessionManager.php";
+require_once "Configs/Extensions/SessionManager.php";
 
 SessionManager::startSession();
 

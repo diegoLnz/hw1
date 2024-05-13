@@ -1,5 +1,5 @@
 <?php
-require_once "SessionManager.php";
+require_once "Configs/Extensions/SessionManager.php";
 
 SessionManager::startSession();
 
@@ -47,18 +47,22 @@ if (SessionManager::has("username")) {
                     <div class="register-box-content-inputs">
 
                         <input type="email" name="email" id="email" placeholder="Indirizzo e-mail">
+                        <span id="email-feedback" class="input-feedback"></span>
                         <input type="text" name="name" id="name" placeholder="Nome e cognome">
                         <input type="text" name="username" id="username" placeholder="Nome utente">
+                        <span id="username-feedback" class="input-feedback"></span>
 
                         <div class="password-container">
                             <input type="password" name="password" id="password" placeholder="Password">
                             <button type="button" class="password-toggle" onclick="togglePassword(this, 'password')">Mostra</button>
                         </div>
+                        <span id="password-feedback" class="input-feedback"></span>
 
                         <div class="password-container">
                             <input type="password" name="password-confirm" id="password-confirm" placeholder="Conferma password">
                             <button type="button" class="password-toggle" onclick="togglePassword(this, 'password-confirm')">Mostra</button>
                         </div>
+                        <span id="password-confirm-feedback" class="input-feedback"></span>
 
                     </div>
 

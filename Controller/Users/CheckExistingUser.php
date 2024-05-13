@@ -3,6 +3,7 @@ require '../../Configs/Extensions/QueryBuilder.php';
 require '../../Configs/Extensions/DbConnection.php';
 require '../../Configs/Extensions/ApiExtensions.php';
 require '../../Configs/Extensions/Diagnostics.php';
+require '../../Configs/Models/ApiResult.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     $response = setResponse("KO", "Metodo non consentito", 405);
@@ -20,7 +21,7 @@ if (!isset($conn)) {
 $username = ApiExtensions::getQueryParam("username", $conn);
 
 if($username == null){
-    $response = self::setResponse("KO", "Username mancante", 400);
+    $response = setResponse("KO", "Username mancante", 400);
     echo $response->toJson();
     exit();
 }
@@ -35,19 +36,21 @@ try
 
     if(mysqli_num_rows($result) > 0)
     {
-        $response = self::setResponse("KO", "Username già in uso", 400);
+        $response = setResponse("KO", "Username già in uso", 200);
         echo $response->toJson();
         exit();
     }
 
-    $response = self::setResponse("OK", "", 200);
-    echo $response->toJson();
+    $response = setResponse("OK", "", 200);
+    $responseData = $response->toJson();
+    echo $responseData;
 
 } catch (Exception $e)
 {
     Diagnostics::traceMessage($e->getMessage(), TraceLevel::Error);
     $response = setResponse("KO", "Errore interno del server", 500);
-    echo $response->toJson();
+    $responseData = $response->toJson();
+    echo $responseData;
 }
 
 function setResponse(string $message, string $error, int $code): ApiResult

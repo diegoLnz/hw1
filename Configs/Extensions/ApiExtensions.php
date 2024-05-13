@@ -2,7 +2,6 @@
 
 class ApiExtensions
 {
-    private $connection = $conn;
     public static function getQueryParam(string $paramName, bool|mysqli $conn): mixed
     {
         return isset($_GET[$paramName]) || empty($_GET[$paramName]) 
