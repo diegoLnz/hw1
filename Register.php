@@ -1,7 +1,12 @@
 <?php
-if(isset($_SESSION["username"]))
-    header("Location: 'Index.php'");
+require_once "SessionManager.php";
 
+SessionManager::startSession();
+
+if (SessionManager::has("username")) {
+    header("Location: Login.php");
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
