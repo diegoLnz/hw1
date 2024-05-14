@@ -54,13 +54,13 @@ if (SessionManager::has("username")) {
 
                         <div class="password-container">
                             <input type="password" name="password" id="password" placeholder="Password">
-                            <button type="button" class="password-toggle" onclick="togglePassword(this, 'password')">Mostra</button>
+                            <div id="pwd-div" class="password-toggle">Mostra</div>
                         </div>
                         <span id="password-feedback" class="input-feedback"></span>
 
                         <div class="password-container">
                             <input type="password" name="password-confirm" id="password-confirm" placeholder="Conferma password">
-                            <button type="button" class="password-toggle" onclick="togglePassword(this, 'password-confirm')">Mostra</button>
+                            <div id="pwd-confirm-div" class="password-toggle">Mostra</div>
                         </div>
                         <span id="password-confirm-feedback" class="input-feedback"></span>
 

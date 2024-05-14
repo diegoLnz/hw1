@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //Toggle Password listeners
+    AddPwdOnClickListener('pwd-div', 'password');
+    AddPwdOnClickListener('pwd-confirm-div', 'password-confirm');
+
     //Email validation
     var emailInput = document.getElementById('email');
     emailInput.addEventListener('input', validateEmail);
@@ -169,6 +173,15 @@ function validateConfirmPassword() {
     }
 
     resetFeedbackSpan(confirmPasswordFeedback.id);
+}
+
+function AddPwdOnClickListener(callerId, targetId)
+{
+    var div = document.getElementById(callerId);
+
+    div.addEventListener("click", () => {
+        togglePassword(div, targetId);
+    });
 }
 
 function togglePassword(caller, targetId)
