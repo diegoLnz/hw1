@@ -1,6 +1,6 @@
 <?php 
 
-class Extensions {
+class GenericExtensions {
 
     /**
      * Tenta di convertire il valore fornito in un intero e lo restituisce per riferimento.

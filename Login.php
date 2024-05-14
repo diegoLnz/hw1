@@ -3,8 +3,8 @@ require_once "Configs/Extensions/SessionManager.php";
 
 SessionManager::startSession();
 
-if (SessionManager::has("username")) {
-    header("Location: Login.php");
+if (SessionManager::has("user")) {
+    header("Location: index.php");
     exit;
 }
 ?>

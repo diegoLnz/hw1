@@ -1,5 +1,5 @@
 <?php
-require "Extensions.php";
+require_once "GenericExtensions.php";
 
 class SessionManager {
     /**
@@ -16,7 +16,7 @@ class SessionManager {
     {
         try
         {
-            if(!Extensions::isNullOrEmptyString($session_name))
+            if(!GenericExtensions::isNullOrEmptyString($session_name))
                 session_name($session_name);
     
             session_set_cookie_params($lifetime, $path, $domain, $secure, $httponly);

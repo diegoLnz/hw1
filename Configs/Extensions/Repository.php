@@ -1,6 +1,5 @@
 <?php
-require 'Extensions.php';
-require 'QueryBuilder.php';
+require_once 'QueryBuilder.php';
 
 class WhereCondition {
     public $column;

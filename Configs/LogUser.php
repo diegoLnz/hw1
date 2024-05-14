@@ -1,7 +1,8 @@
 <?php
-require 'Extensions/DbConnection.php';
-require 'Extensions/Repository.php';
-require 'Extensions/DbMonad.php';
+require_once 'Extensions/DbConnection.php';
+require_once 'Extensions/Repository.php';
+require_once 'Extensions/DbMonad.php';
+require_once 'Extensions/SessionManager.php';
 
 $username = strtolower($_POST["username"]);
 $password = $_POST["password"];
@@ -19,12 +20,17 @@ try
     if(!$success)
         echo "Username o password errati.";
 
-    session_start();
-    $_SESSION["user"] = $username;
+    SessionManager::startSession();
+    SessionManager::set("user", $username);
+
     header("Location: ../index.php");
+    exit;
 
 } catch (Exception $e) {
     Diagnostics::traceMessage($e->getMessage(), TraceLevel::Error, __METHOD__);
+    SessionManager::endSession();
+    header("Location: ../Login.php");
+    exit;
 }
 
 function findUser($params): bool

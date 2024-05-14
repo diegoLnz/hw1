@@ -1,8 +1,8 @@
 <?php
-require 'Extensions/DbConnection.php';
-require 'Extensions/Repository.php';
-require 'Extensions/DbMonad.php';
-require 'Extensions/Diagnostics.php';
+require_once 'Extensions/DbConnection.php';
+require_once 'Extensions/Repository.php';
+require_once 'Extensions/DbMonad.php';
+require_once 'Extensions/Diagnostics.php';
 
 try
 {

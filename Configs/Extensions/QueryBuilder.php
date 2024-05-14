@@ -1,5 +1,5 @@
 <?php
-require "Extensions.php";
+require_once "GenericExtensions.php";
 
 abstract class OrderBy {
     const ASC = 'ASC';
@@ -57,7 +57,7 @@ class QueryBuilder {
      */
     public function select(string $properties): QueryBuilder
     {
-        $this->select = !Extensions::isNullOrEmptyString($properties) 
+        $this->select = !GenericExtensions::isNullOrEmptyString($properties) 
             ? $properties 
             : '#';
 

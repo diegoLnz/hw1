@@ -8,7 +8,6 @@ enum TraceLevel: string
 
 class Diagnostics
 {
-    private static XmlBuilder $xmlBuilder;
     private static string $logFileDirectory = "Logs";
     private static function getLogFileName(): string{
         return "log". date("dmy") .".json";
