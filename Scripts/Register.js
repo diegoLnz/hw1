@@ -40,11 +40,9 @@ function checkIfUserAlreadyExists(username)
     fetch('Controller/Users/CheckExistingUser.php?username=' + encodeURIComponent(username))
         .then(response => response.json())
         .then(data => {
-            if (data.message === 'OK') {
-                resetFeedbackSpan('username-feedback');
-            } else {
-                setKoFeedbackMessage('username-feedback', 'Username già in uso.');
-            }
+            data.message === 'OK'
+                ? resetFeedbackSpan('username-feedback')
+                : setKoFeedbackMessage('username-feedback', 'Username già in uso.');
         })
         .catch(error => {
             console.error('Si è verificato un errore:', error);
