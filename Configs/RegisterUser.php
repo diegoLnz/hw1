@@ -3,6 +3,7 @@ require_once 'Extensions/DbConnection.php';
 require_once 'Extensions/Repository.php';
 require_once 'Extensions/DbMonad.php';
 require_once 'Extensions/Diagnostics.php';
+require_once 'Extensions/SessionManager.php';
 
 try
 {
@@ -28,19 +29,18 @@ try
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $userId = saveUser([$conn, $username, $hashed_password]);
+    $userdataId = saveUserData([$conn, $name, $email]);
+    if($userdataId === false)
+        throw new Exception("Errore durante la registrazione dei dati utente");
+    
+    $userId = saveUser([$conn, $username, $hashed_password, $userdataId]);
     if($userId === false)
         throw new Exception("Errore durante la registrazione dell'utente");
 
-    $anagraficaId = saveAnagrafica([$conn, $name, $userId]);
-    if($anagraficaId === false)
-        throw new Exception("Errore durante la registrazione dell' anagrafica utente");
+    SessionManager::startSession();
+    SessionManager::set("user", $username);
 
-    $monad = DbMonad::unit([$conn, $userId, $anagraficaId])
-        ->bind(fn($params) => updateUserAnagraficaId($params));
-
-    if($monad->hasErrors())
-        throw new Exception("Errori durante il salvataggio: " . implode(", ", $monad->getErrors()));
+    header("Location: ../index.php");
 
 } catch (Exception $e) {
     Diagnostics::traceMessage($e->getMessage(), TraceLevel::Error, __METHOD__);
@@ -48,43 +48,25 @@ try
 
 function saveUser($params): bool|int
 {
-    list($conn, $username, $password) = $params;
+    list($conn, $username, $password, $userdataId) = $params;
 
     //Dati utente
     $user = new stdClass();
     $user->username = $username;
     $user->password = $password;
+    $user->userdata_id = $userdataId;
 
     return Repository::saveOrUpdate($conn, "users", $user);
 }
 
-function saveAnagrafica($params): bool|int
+function saveUserData($params): bool|int
 {
-    list($conn, $name, $userId) = $params;
+    list($conn, $name_surname, $email) = $params;
 
-    $name_parts = explode(" ", $name);
-    $name = $name_parts[0];
-    $surname = $name_parts[1];
-
-    //Dati anagrafica splittati
+    //Dati splittati
     $anagrafica = new stdClass();
-    $anagrafica->nome = $name;
-    $anagrafica->cognome = $surname;
-    $anagrafica->user_id = $userId;
+    $anagrafica->name_surname = $name_surname;
+    $anagrafica->email = $email;
 
-    return Repository::saveOrUpdate($conn, "anagrafiche", $anagrafica);
-}
-
-function updateUserAnagraficaId($params): int
-{
-    list($conn, $userId, $anagraficaId) = $params;
-
-    $updateQuery = new QueryBuilder($conn, "users");
-    $updateQuery
-        ->where('id', SqlOperators::EQUALS, $userId)
-        ->update(['anagrafica_id' => $anagraficaId]);
-
-    $updateQuery->execute();
-
-    return $userId;
+    return Repository::saveOrUpdate($conn, "userdata", $anagrafica);
 }

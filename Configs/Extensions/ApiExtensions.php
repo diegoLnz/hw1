@@ -2,10 +2,13 @@
 
 class ApiExtensions
 {
-    public static function getQueryParam(string $paramName, bool|mysqli $conn): mixed
+    public static function getQueryParam(string $paramName, bool|mysqli $conn = null): mixed
     {
-        return isset($_GET[$paramName]) || empty($_GET[$paramName]) 
-            ? mysqli_real_escape_string($conn, $_GET[$paramName]) 
-            : null;
+        if (!isset($_GET[$paramName]) || empty($_GET[$paramName]))
+            return null;
+
+        return $conn != null 
+                ? mysqli_real_escape_string($conn, $_GET[$paramName]) 
+                : $_GET[$paramName];
     }
 }

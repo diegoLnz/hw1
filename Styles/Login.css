@@ -131,3 +131,8 @@ body{
     margin: 0 0 0 auto; /* Per 'centrare' il testo */
 }
 
+p.login-error{
+    font-size: small;
+    text-align: center;
+    color: crimson;
+}

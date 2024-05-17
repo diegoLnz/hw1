@@ -17,8 +17,10 @@ try
 
     $success = $monad->getValue();
 
-    if(!$success)
-        echo "Username o password errati.";
+    if(!$success){
+        header("Location: ../Login.php?error=invalid_credentials");
+        exit;
+    }
 
     SessionManager::startSession();
     SessionManager::set("user", $username);
@@ -29,7 +31,7 @@ try
 } catch (Exception $e) {
     Diagnostics::traceMessage($e->getMessage(), TraceLevel::Error, __METHOD__);
     SessionManager::endSession();
-    header("Location: ../Login.php");
+    header("Location: ../Login.php?error=generic_error");
     exit;
 }
 

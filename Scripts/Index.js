@@ -1,9 +1,5 @@
 //ToDo: Adapt code for mysocialbook database
 
-const token = "IGQWRQOWp3Q3BQZA2t1ZAjE1X1ZAJM1M0dG0zN2RGeUtHaGlyNU1oWTAxQW9BeE9QWWN3a3NSSjRUT0xSMkdSeGhqUzg0QUl3bFlkLXJEeFczZAzM0bFB3V1VFb1laeWRRSEhYcWJadjBmeEt5YVlVLURZALWE2MC02c2cZD";
-const instaApiBaseUrl =`https://graph.instagram.com`;
-
-
 document.addEventListener("DOMContentLoaded", async function(){
     const postContainer = document.getElementById('post-container');
     const diegoId = "6854500444651451";

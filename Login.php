@@ -1,5 +1,6 @@
 <?php
 require_once "Configs/Extensions/SessionManager.php";
+require_once "Configs/Extensions/ApiExtensions.php";
 
 SessionManager::startSession();
 
@@ -41,6 +42,21 @@ if (SessionManager::has("user")) {
                     <input type="password" class="login-input" id="password" name="password" placeholder="Password">
                     <input type="submit" class="login-submit-btn" value="Accedi">
                 </div>
+                <?php
+                    $error = ApiExtensions::getQueryParam("error");
+                
+                    if($error != null)
+                    {
+                        if(strtolower($error) == "invalid_credentials")
+                        {
+                            echo "<p class='login-error'>Username o password errati!</p>";
+                        }
+                        else if(strtolower($error) == "generic_error")
+                        {
+                            echo "<p class='login-error'>Errore nel server</p>";
+                        }
+                    }
+                ?>
                 <a class="forgot-pass" href="#">Password dimenticata?</a>
                 
                 <div class="separer"><span>o</span></div>
