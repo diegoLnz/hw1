@@ -17,7 +17,8 @@ if (!SessionManager::has("user")) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
-    
+    <script src="Scripts/Index.js"></script>
+
     <!--===FAVICON===-->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
@@ -77,6 +78,9 @@ if (!SessionManager::has("user")) {
                     <rect x="0" y="0" width="30" height="3"></rect>
                     <rect x="10" y="8" width="20" height="3"></rect>
                 </svg>
+                <div id="dropdown-menu" class="dropdown-menu d-none">
+                    <div class="dropdown-item" id="logout">Esci</div>
+                </div>
             </div>
             
         </nav>

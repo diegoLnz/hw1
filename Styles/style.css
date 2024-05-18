@@ -9,6 +9,7 @@
     --custom-white: #f3f5f7;
     --nav-icons-color: rgb(77 77 77);
     --navbar-color-for-blur: rgba(16, 16, 16, 0.85);
+    --dropdown-menu-color: #181818;
 
     /*---===LOGIN PAGE===---*/
     --loginbox-height: 600px;
@@ -25,12 +26,44 @@
     /*---===REGISTER PAGE===---*/
 }
 
-
-
 body{
     margin: 0px;
     background-color: var(--theme-color);;
     overflow-y: auto;
+}
+
+.d-block{
+    display: block;
+}
+
+.d-none{
+    display: none;
+}
+
+.d-flex{
+    display: flex;
+}
+
+#dropdown-menu {
+    position: absolute;
+    top: var(--nav-height);
+    right: 20px;
+    background-color: var(--dropdown-menu-color);
+    backdrop-filter: blur(20px);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: var(--custom-white);
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: var(--actions-hover-color);
 }
 
 .pointed{
@@ -247,7 +280,6 @@ header {
 
 #options{
     width: 200px;
-    cursor: pointer;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -259,7 +291,11 @@ header {
     transition: fill 0.3s ease;
 }
 
-#options:hover .menu-icon rect {
+.menu-icon:hover{
+    cursor: pointer;
+}
+
+.menu-icon:hover rect {
     fill: var(--custom-white);
 }
 
