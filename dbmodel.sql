@@ -1,3 +1,10 @@
+CREATE TABLE images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    file_name TEXT,
+    file_extension TEXT,
+    file_path TEXT
+);
+
 CREATE TABLE userdata (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name_surname VARCHAR(255),
@@ -9,14 +16,9 @@ CREATE TABLE users (
     username VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     userdata_id INT,
-    FOREIGN KEY (userdata_id) REFERENCES userdata(id)
-);
-
-CREATE TABLE images (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    file_name TEXT,
-    file_extension TEXT,
-    file_path TEXT
+    profile_pic_id INT,
+    FOREIGN KEY (userdata_id) REFERENCES userdata(id),
+    FOREIGN KEY (profile_pic_id) REFERENCES images(id)
 );
 
 CREATE TABLE posts (
