@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const optionsButton = document.getElementById("options");
     const dropdownMenu = document.getElementById("dropdown-menu");
     const logoutButton = document.getElementById("logout");
+    SetModalScript();
 
     optionsButton.addEventListener("click", () => {
         ToggleBlockDisplay(dropdownMenu);
@@ -37,4 +38,25 @@ function SetDisplayNone(element)
     element.classList.remove('d-block');
     element.classList.remove('d-flex');
     element.classList.add('d-none');
+}
+
+function SetModalScript()
+{
+    var modal = document.getElementById("new-thread-modal");
+    var btn = document.getElementById("new-thread");
+    var textArea = document.getElementsByClassName("start-thread-label")[0];
+
+    btn.onclick = () => {
+        SetDisplayBlock(modal);
+    }
+
+    textArea.onclick = () => {
+        SetDisplayBlock(modal);
+    }
+
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            SetDisplayNone(modal);
+        }
+    }
 }

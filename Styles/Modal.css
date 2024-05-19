@@ -1,0 +1,40 @@
+.modal {
+    position: fixed;
+    z-index: 1000;
+    padding-top: 200px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--dropdown-menu-color);
+    color: var(--custom-white);
+    border-radius: 20px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #383939;
+    width: 40%;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+#new-thread-text-div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#new-thread-text {
+    color: var(--custom-white);
+    font-weight: bold;
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
