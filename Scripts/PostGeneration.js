@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", async function(){
     const postContainer = document.getElementById('post-container');
-    const diegoId = "6854500444651451";
 
     const instaPosts = await getInstaPosts(diegoId);
     const postsList = [];
@@ -16,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async function(){
 
     //API => FUTURE MYSOCIALBOOK API (WHEN THEY WILL BE IMPLEMENTED)
     postsList.forEach(post => {
-        generateInstaPostHTML(post, postContainer);
+        generatePostHTML(post, postContainer);
     });
 });
 
@@ -30,7 +29,7 @@ async function getInstaPostById(postId){
       .then(response => response.json());
 }
 
-function generateInstaPostHTML(postData, container){
+function generatePostHTML(postData, container){
     const postHTML = document.createElement("div");
     postHTML.classList.add("single-post");
 
@@ -38,17 +37,6 @@ function generateInstaPostHTML(postData, container){
 
     postHTML.appendChild(generatePostHeaderHTML(postData.username, formattedTime));
     postHTML.appendChild(generatePostContentHTML(postData.caption, postData.media_url));
-    postHTML.appendChild(generatePostFooterHTML());
-
-    container.appendChild(postHTML);
-}
-
-function generatePostHTML(post, user, container) {
-    const postHTML = document.createElement("div");
-    postHTML.classList.add("single-post");
-
-    postHTML.appendChild(generatePostHeaderHTML(user.username, ""));
-    postHTML.appendChild(generatePostContentHTML(post.body, ""));
     postHTML.appendChild(generatePostFooterHTML());
 
     container.appendChild(postHTML);
