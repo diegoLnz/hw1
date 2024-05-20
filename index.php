@@ -91,21 +91,46 @@ if (!SessionManager::has("user")) {
     </header>
 
     <!-- Modal -->
-    <div id="new-thread-modal" class="modal d-none">
-        <div id="new-thread-text-div">
-            <p id="new-thread-text">Nuovo thread</p>
+    <form action="Configs/UploadThread.php" method="POST" enctype="multipart/form-data">
+        <div id="new-thread-modal" class="modal d-none">
+            <div id="new-thread-text-div">
+                <p id="new-thread-text">Nuovo thread</p>
+            </div>
+            <div class="modal-content">
+                <div class="modal-form-div">
+                    <div class="user-info">
+                        <div class="user-image"></div>
+                        <div class="user-section-content">
+                            <div class="main-username">
+                                <a class="userlink" href="#"><?php echo SessionManager::get('user'); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-thread-inputs">
+                        <textarea id="new-thread-input-text" maxlength="500" name="description" placeholder="Avvia un thread..."></textarea>
+                        
+                        <!-- Image upload -->
+                        <div class="image-upload-div">
+                            <button type="button" id="upload-button" class="upload-btn d-block">Carica foto</button>
+                            <input type="file" id="file-input" name="file" accept="image/jpeg, image/png" class="d-none">
+                            <img id="image-preview" class="d-none" alt="Anteprima immagine">
+                            <button type="button" id="remove-image-button" class="d-none">Rimuovi</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" id="submit-thread" class="publish-btn btn-disabled" value="Pubblica">
+                </div>
+            </div>
         </div>
-        <div class="modal-content">
-            <p>Some text in the Modal..</p>
-        </div>
-    </div>
+    </form>
     
     <section class="content" id="post-container">
 
         <div class="start-thread">
             <div class="user-image"></div>
             <div class="start-thread-label">Avvia un thread...</div>
-            <div class="publish-btn disabled">Pubblica</div>
+            <div class="publish-btn btn-disabled">Pubblica</div>
         </div>
 
         <!--STRUTTURA POST-->

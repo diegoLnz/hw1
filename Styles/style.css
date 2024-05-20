@@ -216,13 +216,16 @@ header {
     justify-content: center;
     width: 100px;
     border-radius: 50px;
-    background-color: #585858;
-    color: var(--theme-color);;
-    font-weight: 500;
+    background-color: var(--custom-white);
+    color: var(--theme-color);
+    font-weight: bold;
     font-size: small;
+    cursor: pointer;
+    border: none;
 }
 
-.disabled{
+.btn-disabled{
+    background-color: #585858;
     cursor: not-allowed;
 }
 
@@ -365,6 +368,8 @@ header {
     border-radius: 50%;
     min-height: 40px;
     min-width: 40px;
+    max-height: 40px;
+    max-width: 40px;
     background-color: black;
     margin-right: 10px;
     background-image: url("../images/generic_user.png");
@@ -380,13 +385,81 @@ header {
     font-size: 15px;
 }
 
-#userlink{
+.userlink{
     text-decoration: none;
     color: var(--custom-white);;
 }
 
-#userlink:hover{
+.userlink:hover{
     text-decoration: underline;
+}
+
+.user-section-content{
+    display: flex;
+    flex-direction: column;
+}
+
+#new-thread-input-text{
+    color: var(--custom-white);
+    background: none;
+    border: none;
+    width: 100%;
+    min-height: 40px;
+    resize: none;
+    overflow: hidden;
+    padding: 10px;
+    font-family: 'Radio Canada';
+    font-weight: lighter;
+    font-size: 15px;
+}
+
+#new-thread-input-text:focus{
+    outline: none !important;
+}
+
+.upload-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #383939;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    max-width: 100px;
+}
+
+.upload-btn:hover {
+    background-color: #242424;
+}
+
+#image-preview {
+    margin-top: 10px;
+    max-width: 70%;
+    border-radius: 20px;
+    border: 1px solid var(--login-input-back-color);
+    width: fit-content;
+    max-height: 200px;
+    height: auto;
+}
+
+#remove-image-button {
+    margin-top: 10px;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    max-width: 100px;
+}
+
+#remove-image-button:hover {
+    background-color: #c82333;
+}
+
+.image-upload-div{
+    display: flex;
+    flex-direction: column;
 }
 
 /*MEDIA QUERIES*/
