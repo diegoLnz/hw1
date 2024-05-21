@@ -418,14 +418,17 @@ header {
 }
 
 .upload-btn {
-    margin-top: 10px;
-    padding: 6px 12px;
+    margin: 0px;
+    padding: 0px;
     cursor: pointer;
-    background-color: #383939;
-    color: white;
+    background: none;
+    color: #6e6e6e;
     border: none;
     border-radius: 4px;
-    max-width: 100px;
+    max-width: 30px;
+    max-height: 30px;
+    height: 30px;
+    width: 30px;
 }
 
 .upload-btn:hover {
@@ -433,7 +436,6 @@ header {
 }
 
 #image-preview {
-    margin-top: 10px;
     max-width: 70%;
     border-radius: 20px;
     border: 1px solid var(--login-input-back-color);
@@ -443,14 +445,17 @@ header {
 }
 
 #remove-image-button {
-    margin-top: 10px;
-    padding: 6px 12px;
+    margin: 10px 0px;
+    padding: 0px;
     cursor: pointer;
-    background-color: #dc3545;
-    color: white;
+    background: none;
+    color: #dc3545;
     border: none;
     border-radius: 4px;
-    max-width: 100px;
+    max-width: 30px;
+    max-height: 30px;
+    height: 30px;
+    width: 30px;
 }
 
 #remove-image-button:hover {
@@ -460,6 +465,7 @@ header {
 .image-upload-div{
     display: flex;
     flex-direction: column;
+    margin-bottom: 1rem;
 }
 
 /*MEDIA QUERIES*/

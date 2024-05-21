@@ -45,6 +45,12 @@ class ImageUploader {
 
     public function uploadFile($fileInputName): string
     {
+        if (!is_dir($this->targetDirectory)) {
+            if (!mkdir($this->targetDirectory, 0777, true) && !is_dir($this->targetDirectory)) {
+                return ImageValidationResult::UPLOAD_ERRORS->value;
+            }
+        }
+
         if (!isset($_FILES[$fileInputName]))
             return ImageValidationResult::UPLOAD_ERRORS->value;
 
@@ -66,7 +72,7 @@ class ImageUploader {
         if(!in_array($file->extension, $this->allowedExtensions))
             return ImageValidationResult::INVALID_EXTENSION;
 
-        if($file->error == UPLOAD_ERR_OK)
+        if($file->error != UPLOAD_ERR_OK)
             return ImageValidationResult::UPLOAD_ERRORS;
 
         if($file->size > $this->maxFileSize)
