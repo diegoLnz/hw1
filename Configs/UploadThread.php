@@ -46,7 +46,7 @@ if($savePost == false)
     header("Location: ../index.php?error=upload");
     exit;
 }
-header("Location: ../index.php");
+header("Location: ../index.php?upload=success");
 exit;
 
 function SavePost(bool|mysqli $conn, string $username, string $imagePath): bool|int
@@ -107,19 +107,3 @@ function SaveImage(bool|mysqli $conn, Image $image, string $imagePath): bool|int
 
     return $res;
 }
-
-// CREATE TABLE posts (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     post_description TEXT,
-//     publish_date DATETIME,
-//     user_id INT,
-//     image_id INT,
-//     FOREIGN KEY (user_id) REFERENCES users(id),
-//     FOREIGN KEY (image_id) REFERENCES images(id)
-// );
-// CREATE TABLE images (
-//     id INT AUTO_INCREMENT PRIMARY KEY,
-//     file_name TEXT,
-//     file_extension TEXT,
-//     file_path TEXT
-// );
