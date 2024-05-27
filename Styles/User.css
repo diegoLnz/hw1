@@ -1,0 +1,87 @@
+.main {
+    position: absolute;
+    top: var(--nav-height);
+    width: 98vw;
+    padding: 50px 0px;
+}
+
+#username {
+    font-weight: bold;
+    color: var(--custom-white);
+    font-size: xx-large;
+}
+
+#user-name {
+    color: var(--custom-white);
+}
+
+#profile-image {
+    max-width: 100px;
+    max-height: 100px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#user-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+#user-desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#num-followers {
+    color: #777777;
+    text-decoration: none;
+    width: fit-content;
+}
+
+#num-followers:hover {
+    text-decoration: underline;
+}
+
+.threads-list-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#threads-label {
+    font-weight: bold;
+    color: var(--custom-white);
+    font-size: x-large;
+    margin: 20px 0px;
+}
+
+#post-container {
+    border-top: 1px solid var(--custom-white);
+    margin-bottom: var(--nav-height);
+    padding-top: 20px;
+}
+
+@media screen and (max-width: 730px) {
+    #profile-image {
+        max-width: 75px;
+        max-height: 75px;
+        width: 75px;
+        height: 75px;
+    }
+
+    #username {
+        font-size: large;
+    }
+
+    #user-name {
+        font-size: small;
+    }
+
+    #num-followers {
+        font-size: small;
+    }
+}

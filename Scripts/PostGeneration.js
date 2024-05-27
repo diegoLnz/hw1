@@ -1,17 +1,14 @@
 //ToDo: Adapt code for mysocialbook database
+var baseUrl = "Controller/Posts/GetPostsByUserId.php?id=";
+var userId = document.getElementById("user-id").value;
 
 document.addEventListener("DOMContentLoaded", async function(){
     const postContainer = document.getElementById('post-container');
 
-    const instaPosts = await getInstaPosts(diegoId);
-    const postsList = [];
+    const instaPosts = await getPosts(userId);
+    const postsList = instaPosts;
 
-    for(let post of instaPosts.data){
-        let postData = await getInstaPostById(post.id);
-        postsList.push(postData);
-    }
-
-    postsList.sort((post1, post2) => post2.timestamp - post1.timestamp);
+    postsList.sort((post1, post2) => post2.publish_date - post1.publish_date);
 
     //API => FUTURE MYSOCIALBOOK API (WHEN THEY WILL BE IMPLEMENTED)
     postsList.forEach(post => {
@@ -19,13 +16,8 @@ document.addEventListener("DOMContentLoaded", async function(){
     });
 });
 
-async function getInstaPosts(userId){
-    return await fetch(`${instaApiBaseUrl}/v19.0/${userId}/media?access_token=${token}`)
-      .then(response => response.json());
-}
-
-async function getInstaPostById(postId){
-    return await fetch(`${instaApiBaseUrl}/${postId}?fields=id,media_type,media_url,username,timestamp,caption&access_token=${token}`)
+async function getPosts(userId){
+    return await fetch(`${baseUrl}${userId}`)
       .then(response => response.json());
 }
 
@@ -33,10 +25,10 @@ function generatePostHTML(postData, container){
     const postHTML = document.createElement("div");
     postHTML.classList.add("single-post");
 
-    let formattedTime = getPostTimeTillNow(postData.timestamp);
+    let formattedTime = getPostTimeTillNow(postData.publish_date);
 
-    postHTML.appendChild(generatePostHeaderHTML(postData.username, formattedTime));
-    postHTML.appendChild(generatePostContentHTML(postData.caption, postData.media_url));
+    postHTML.appendChild(generatePostHeaderHTML(postData.user.username, formattedTime));
+    postHTML.appendChild(generatePostContentHTML(postData.post_description, "hw1/" + postData.image.file_path));
     postHTML.appendChild(generatePostFooterHTML());
 
     container.appendChild(postHTML);
@@ -143,7 +135,7 @@ function generatePostFooterHTML() {
 
     const repliesNumber = document.createElement('div');
     repliesNumber.classList.add('replies-number');
-    repliesNumber.textContent = '10 Risposte';
+    repliesNumber.textContent = 'N Risposte';
     postFooter.appendChild(repliesNumber);
 
     const separator = document.createElement('div');

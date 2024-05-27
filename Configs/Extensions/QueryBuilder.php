@@ -1,5 +1,6 @@
 <?php
 require_once "GenericExtensions.php";
+require_once "Diagnostics.php";
 
 abstract class OrderBy {
     const ASC = 'ASC';
