@@ -1,0 +1,72 @@
+:root {
+    --inputsearch-height: 30px;
+    --inputsearch-width: 230px;
+}
+
+#main {
+    position: absolute;
+    top: var(--nav-height);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+input {
+    height: var(--inputsearch-height);
+    width: var(--inputsearch-width);
+    border-radius: 7px;
+    padding-left: var(--login-input-padding-left);
+    background-color: var(--login-input-back-color);
+    border: 0px;
+    caret-color: var(--custom-white);
+    color: var(--custom-white);
+}
+
+input:focus {
+    outline: none !important;
+    border: var(--login-submit-btn-focused-border-size) solid rgb(118 118 118);
+
+    /* --==PER IMPERDIRE CHE IL BORDO INFLUENZI LA DIMENSIONE DI TUTTO IL FORM==-- */
+    width: calc(var(--inputsearch-width) - 1px * 2);
+    height: calc(var(--inputsearch-height) - 1px * 2);
+}
+
+#users-list-div {
+    display: flex;
+    flex-direction: column;
+    color: var(--custom-white);
+    margin-top: 30px;
+}
+
+.user-item{
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #3b3b3b;
+    margin-bottom: 5px;
+}
+
+.user-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-item-info .usernamesurname {
+    font-weight: bolder;
+    width: fit-content;
+}
+
+.user-item-info .username {
+    width: fit-content;
+}
+
+.profile-image {
+    height: 50px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+}

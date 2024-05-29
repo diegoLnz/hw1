@@ -1,5 +1,5 @@
 //ToDo: Adapt code for mysocialbook database
-var baseUrl = "Controller/Posts/GetPostsByUserId.php?id=";
+var baseUrl = "Controller/Posts/GetFollowedUsersPosts.php?id=";
 var userId = document.getElementById("user-id").value;
 
 document.addEventListener("DOMContentLoaded", async function(){
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", async function(){
 
     postsList.sort((post1, post2) => post2.publish_date - post1.publish_date);
 
-    //API => FUTURE MYSOCIALBOOK API (WHEN THEY WILL BE IMPLEMENTED)
     postsList.forEach(post => {
         generatePostHTML(post, postContainer);
     });
