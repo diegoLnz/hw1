@@ -159,7 +159,7 @@ $userId = $row['id'];
     
     <div id="main">
 
-        <input type="hidden" id="user-id" value="<?php echo $userId; ?>">
+        <input type="hidden" id="hidden-username" value="<?php echo SessionManager::get('user'); ?>">
 
         <input type="text" name="search-input" id="search-input" placeholder="Cerca utenti">
 

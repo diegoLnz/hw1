@@ -48,6 +48,7 @@ input:focus {
     border-radius: 20px;
     border: 1px solid #3b3b3b;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .user-item-info {

@@ -1,5 +1,6 @@
 <?php
 require_once '../../Configs/Extensions/DbConnection.php';
+require_once '../../Configs/Extensions/GenericExtensions.php';
 require_once '../../Configs/Extensions/ApiExtensions.php';
 require_once '../../Configs/Extensions/Repository.php';
 require_once '../../Configs/Extensions/QueryBuilder.php';
@@ -13,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 $search = ApiExtensions::getQueryParam("search", $conn);
+$user = ApiExtensions::getQueryParam("user", $conn);
 $search = strtolower($search);
 
 if (empty($search)) {
@@ -21,20 +23,20 @@ if (empty($search)) {
     exit();
 }
 
-if(!SessionManager::has('user'))
+if(GenericExtensions::isNullOrEmptyString($user))
 {
     $response = setResponse("KO", "Non sei loggato", 400);
     echo $response->toJson();
     exit();
 }
 
-$username = strtolower(SessionManager::get('user'));
-
 $qb = new QueryBuilder($conn, "users");
 $qb->join("userdata", "users.userdata_id = userdata.id")
-->where("LOWER(users.username)", SqlOperators::LIKE, "%$search%")
-->where("LOWER(userdata.name_surname)", SqlOperators::LIKE, "%$search%", logicalOperators::LOGICAL_OR)
-->where("LOWER(users.username)", SqlOperators::NOT_EQUAL, $username, logicalOperators::LOGICAL_AND);
+->beginWhereGroup()
+    ->where("LOWER(users.username)", SqlOperators::LIKE, "%$search%")
+    ->where("LOWER(userdata.name_surname)", SqlOperators::LIKE, "%$search%", logicalOperators::LOGICAL_OR)
+->endWhereGroup()
+->where("LOWER(users.username)", SqlOperators::NOT_EQUAL, strtolower($user), logicalOperators::LOGICAL_AND);
 
 $result = $qb->getQuery();
 

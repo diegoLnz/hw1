@@ -1,7 +1,8 @@
-var baseUrl = "Controller/Users/GetUsersListForSearchForm.php?search=";
+var baseUrl = "Controller/Users/GetUsersListForSearchForm.php";
 
 document.addEventListener("DOMContentLoaded", function() {
     const searchBox = document.getElementById("search-input");
+    const username = document.getElementById("hidden-username").value;
     searchBox.addEventListener("input", async function() {
         const searchParam = searchBox.value;
 
@@ -11,13 +12,13 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
     
-        const users = await getUsers(searchParam);
+        const users = await getUsers(searchParam, username);
         displayUsers(users);
     });
 });
 
-async function getUsers(searchParam) {
-    return await fetch(`${baseUrl}${searchParam}`)
+async function getUsers(searchParam, username) {
+    return await fetch(`${baseUrl}?search=${searchParam}&user=${username}`)
         .then(response => response.json());
 }
 

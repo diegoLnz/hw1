@@ -24,7 +24,7 @@ abstract class SqlOperators {
 }
 
 abstract class LogicalOperators {
-    const LOGICAL_AND = "&&";
+    const LOGICAL_AND = "AND";
     const LOGICAL_OR = 'OR';
 }
 
@@ -41,6 +41,7 @@ class QueryBuilder {
     private $join = '';
     private $updateSet = '';
     private $delete = '';
+    private $isFirstWhere = true;
 
     /**
      * Costruttore di query
@@ -73,10 +74,31 @@ class QueryBuilder {
      * @param string $logicalOperator In caso di where precedenti ad essa, specificare concatenare con "AND" o "OR"
      */
     public function where($column, $operator, $value, $logicalOperator = '&&') {
-        if ($this->where !== '') {
+        if (!$this->isFirstWhere) {
             $this->where .= " $logicalOperator ";
         }
+        $this->isFirstWhere = false;
         $this->where .= "$column $operator '$value'";
+        return $this;
+    }
+
+    /**
+     * Apri un gruppo di where cominciate da una parentesi
+     */
+    public function beginWhereGroup($logicalOperator = 'AND') {
+        if (!$this->isFirstWhere) {
+            $this->where .= " $logicalOperator ";
+        }
+        $this->where .= "(";
+        $this->isFirstWhere = true;
+        return $this;
+    }
+    
+    /**
+     * Chiudi un gruppo di where cominciate da una parentesi
+     */
+    public function endWhereGroup() {
+        $this->where .= ")";
         return $this;
     }
 
@@ -273,6 +295,7 @@ class QueryBuilder {
         $this->join = '';
         $this->updateSet = '';
         $this->delete = '';
+        $this->isFirstWhere = false;
     }
 
 }
