@@ -32,6 +32,18 @@ while ($row = mysqli_fetch_assoc($followsResult)) {
     $followedUserIds[] = $row['followed_user_id'];
 }
 
+$qb = new QueryBuilder($conn, "likes");
+$likesResult = $qb
+->where("user_id", SqlOperators::EQUALS, $userId)
+->getQuery();
+
+$likedPostIds = [];
+
+while ($row = mysqli_fetch_assoc($likesResult))
+{
+    $likedPostIds[] = $row["post_id"];
+}
+
 $posts = [];
 
 foreach ($followedUserIds as $followedUserId) {
@@ -99,6 +111,7 @@ foreach ($followedUserIds as $followedUserId) {
             'post_id' => $postId,
             'post_description' => $row['post_description'],
             'publish_date' => $row['publish_date'],
+            'liked' => in_array($postId, $likedPostIds),
             'image' => [
                 'file_name' => $imgRow['file_name'],
                 'file_extension' => $imgRow['file_extension'],

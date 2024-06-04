@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", async function(){
     postsList.forEach(post => {
         generatePostHTML(post, postContainer);
     });
+
+    setCommentSection();
 });
 
 async function getPosts(userId){
@@ -27,7 +29,7 @@ function generatePostHTML(postData, container){
     let formattedTime = getPostTimeTillNow(postData.publish_date);
 
     postHTML.appendChild(generatePostHeaderHTML(postData.user.username, formattedTime));
-    postHTML.appendChild(generatePostContentHTML(postData.post_description, "hw1/" + postData.image.file_path));
+    postHTML.appendChild(generatePostContentHTML(postData.post_description, "hw1/" + postData.image.file_path, postData.post_id, postData.liked));
     postHTML.appendChild(generatePostFooterHTML());
 
     container.appendChild(postHTML);
@@ -48,7 +50,7 @@ function generatePostHeaderHTML(username, timeTillNow) {
     mainUsername.classList.add('main-username');
     const userLink = document.createElement('a');
     userLink.classList.add('userlink');
-    userLink.href = '#';
+    userLink.href = 'users.php?user=' + username;
     userLink.textContent = username;
     mainUsername.appendChild(userLink);
     userInfo.appendChild(mainUsername);
@@ -81,7 +83,9 @@ function generatePostHeaderHTML(username, timeTillNow) {
     return postHeader;
 }
 
-function generatePostContentHTML(postBody, postImage) {
+function generatePostContentHTML(postBody, postImage, postId, isLiked) {
+    const userId = document.getElementById("user-id").value;
+
     const postContent = document.createElement('div');
     postContent.classList.add('post-content');
 
@@ -103,22 +107,80 @@ function generatePostContentHTML(postBody, postImage) {
     const actionsMenu = document.createElement('div');
     actionsMenu.classList.add('actions-menu');
 
-    //first action item
-    actionsMenu.appendChild(
-        generateActionItemBySvgPath('m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15')
-    );
+    //like action item
+    var likeIcon = generateActionItemBySvgPath('m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15')
+    likeIcon.classList.add("for-like");
+
+    if(isLiked)
+    {
+        setLikedUI(likeIcon);
+    }
+
+    likeIcon.addEventListener("click", () => {
+        toggleLike(likeIcon, userId, postId);
+    });
+    
+    actionsMenu.appendChild(likeIcon);
+
 
     //second action item
     actionsMenu.appendChild(
         generateActionItemBySvgPath('M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z')
     );
 
-    //third action item
-    actionsMenu.appendChild(
-        generateActionItemBySvgPath('M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105')
-    );
+    //comment action item
+    var commentIcon = generateActionItemBySvgPath('M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105');
+    commentIcon.classList.add("comment-icon");
+    actionsMenu.appendChild(commentIcon);
 
     postContent.appendChild(actionsMenu);
+
+    const commentForm = document.createElement('form');
+    commentForm.method = "POST";
+    commentForm.action = "Controller/Comments/UploadComment.php";
+
+    const userIdInput = document.createElement('input');
+    userIdInput.type = "hidden";
+    userIdInput.name = "user";
+    userIdInput.value = userId;
+
+    const postIdInput = document.createElement('input');
+    postIdInput.type = "hidden";
+    postIdInput.name = "post";
+    postIdInput.value = postId;
+
+    commentForm.appendChild(userIdInput);
+    commentForm.appendChild(postIdInput);
+
+    const commentDiv = document.createElement('div');
+    commentDiv.classList.add("comment-input-container", "d-none");
+    const commentInput = document.createElement("input");
+    commentInput.classList.add("comment-input");
+    commentInput.placeholder = "Scrivi un commento...";
+    commentInput.type = "text";
+    commentInput.name = "comment_content";
+    const commentBtn = document.createElement('button');
+    commentBtn.classList.add("submit-comment", "disabled");
+    commentBtn.innerHTML = "Invia";
+    commentBtn.disabled = true;
+    
+    commentInput.addEventListener("input", () => {
+        if(commentInput.value != "")
+        {
+            commentBtn.disabled = false;
+            commentBtn.classList.remove("disabled");
+            return;
+        }
+
+        commentBtn.disabled = true;
+        commentBtn.classList.add("disabled");
+    });
+
+    commentDiv.appendChild(commentInput);
+    commentDiv.appendChild(commentBtn);
+
+    commentForm.appendChild(commentDiv);
+    postContent.appendChild(commentForm);
 
     return postContent;
 }
@@ -201,4 +263,49 @@ function generateActionItemBySvgPath(svgPath){
     actionItem.appendChild(svg);
 
     return actionItem;
+}
+
+function setCommentSection()
+{
+    document.querySelectorAll('.comment-icon').forEach(function (icon) {
+        icon.addEventListener('click', function () {
+            const commentInputContainer = this.closest('.post-content').querySelector('.comment-input-container');
+            if (commentInputContainer.classList.contains('d-none')) {
+                commentInputContainer.classList.remove('d-none');
+            } else {
+                commentInputContainer.classList.add('d-none');
+            }
+        });
+    });
+}
+
+async function toggleLike(element, userId, postId)
+{
+    if(!element.classList.contains('liked')){
+        setLikedUI(element);
+    }
+    else{
+        setNotLikedUI(element);
+    }
+    
+    return await fetch("Controller/Posts/LikePost.php?user=" + userId + "&post=" + postId)
+        .then(response => response.json());
+}
+
+function setLikedUI(element)
+{
+    let svg = element.querySelector("svg");
+    svg.setAttribute("fill", "red");
+    let path = element.querySelector("svg path");
+    path.setAttribute("d", "M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314");
+    element.classList.add('liked');
+}
+
+function setNotLikedUI(element)
+{
+    let svg = element.querySelector("svg");
+    svg.setAttribute("fill", "currentColor");
+    let path = element.querySelector("svg path");
+    path.setAttribute("d", "m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15");
+    element.classList.remove('liked');
 }
