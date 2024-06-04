@@ -49,6 +49,8 @@ input:focus {
     border: 1px solid #3b3b3b;
     margin-bottom: 5px;
     cursor: pointer;
+    text-decoration: none;
+    color: var(--custom-white);
 }
 
 .user-item-info {

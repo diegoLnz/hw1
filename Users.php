@@ -33,7 +33,7 @@ $userdataId = $row['userdata_id'];
 $result = Repository::getAll(
     $conn, 
     'follows', 
-    [new WhereCondition('follower_id', SqlOperators::EQUALS, $row['id'])]
+    [new WhereCondition('followed_user_id', SqlOperators::EQUALS, $row['id'])]
 );
 
 if(mysqli_num_rows($result) < 0)
@@ -62,6 +62,19 @@ $userInfo->id = $userId;
 $userInfo->username = $username;
 $userInfo->name = $row['name_surname'];
 $userInfo->followersNum = $followersNum;
+$userInfo->alreadyFollowed = false;
+
+$qb = new QueryBuilder($conn, "follows f");
+$followResult = $qb
+->join("users u1", "f.follower_id = u1.id")
+->join("users u2", "f.followed_user_id = u2.id")
+->beginWhereGroup()
+    ->where("LOWER(u1.username)", SqlOperators::EQUALS, strtolower(SessionManager::get("user")))
+    ->where("LOWER(u2.username)", SqlOperators::EQUALS, strtolower($username))
+->endWhereGroup()
+->getQuery();
+
+$userInfo->alreadyFollowed = mysqli_num_rows($followResult) == 1;
 ?>
 
 <html lang="it">
@@ -76,6 +89,7 @@ $userInfo->followersNum = $followersNum;
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
     <script src="Scripts/DoLogout.js"></script>
     <script src="Scripts/Modal.js"></script>
+    <script src="Scripts/Follow.js"></script>
     <script src="Scripts/UserPosts.js" defer></script>
 
     <!--===FAVICON===-->
@@ -125,7 +139,7 @@ $userInfo->followersNum = $followersNum;
                     </svg>
                 </div>
 
-                <div class="nav-item" id="personal-info">
+                <div class="nav-item" id="personal-info" onclick="window.location.href = 'user.php'">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                     </svg>
@@ -147,6 +161,9 @@ $userInfo->followersNum = $followersNum;
         <div class="nav-background"></div>
             
     </header>
+
+    <input type="hidden" id="hidden-user" value="<?php echo SessionManager::get("user"); ?>">
+    <input type="hidden" id="hidden-user-to-follow" value="<?php echo $userInfo->username; ?>">
 
     <!-- Modal -->
     <form action="Configs/UploadThread.php" method="POST" enctype="multipart/form-data">
@@ -209,6 +226,15 @@ $userInfo->followersNum = $followersNum;
                 </a>
             </div>
             <img id="profile-image" src="images/generic_user.png" alt="Immagine profilo">
+        </div>
+
+        <div class="follow-div">
+            <?php
+            if ($userInfo->alreadyFollowed) 
+                echo '<button id="follow-btn" class="custom-btn already-follows" type="button">Segui già</button>';
+            else
+                echo '<button id="follow-btn" class="custom-btn" type="button">Segui</button>';
+            ?>
         </div>
 
         <div class="threads-list-div">

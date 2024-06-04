@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async function(){
     const instaPosts = await getPosts(userId);
     const postsList = instaPosts;
 
-    postsList.sort((post1, post2) => post2.publish_date - post1.publish_date);
+    postsList.sort((post1, post2) => new Date(post2.publish_date) - new Date(post1.publish_date));
 
     postsList.forEach(post => {
         generatePostHTML(post, postContainer);
@@ -90,12 +90,15 @@ function generatePostContentHTML(postBody, postImage) {
     postText.textContent = postBody;
     postContent.appendChild(postText);
 
-    const postImageContainer = document.createElement('div');
-    postImageContainer.classList.add('post-image');
-    const image = document.createElement('img');
-    image.src = postImage;
-    postImageContainer.appendChild(image);
-    postContent.appendChild(postImageContainer);
+    if(postImage != "hw1/")
+    {
+        const postImageContainer = document.createElement('div');
+        postImageContainer.classList.add('post-image');
+        const image = document.createElement('img');
+        image.src = postImage;
+        postImageContainer.appendChild(image);
+        postContent.appendChild(postImageContainer);
+    }
 
     const actionsMenu = document.createElement('div');
     actionsMenu.classList.add('actions-menu');

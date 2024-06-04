@@ -161,8 +161,8 @@ $userId = $row['id'];
             <div class="user-image"></div>
             <div class="start-thread-label">Avvia un thread...</div>
             <div class="publish-btn btn-disabled">Pubblica</div>
+            <input type="hidden" id="user-id" value="<?php echo $userId; ?>">
         </div>
-        <input type="hidden" id="user-id" value="<?php echo $userId; ?>">
         <!--STRUTTURA POST-->
         <!--<div class="single-post">
 

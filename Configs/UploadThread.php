@@ -21,7 +21,7 @@ if(!SessionManager::has('user'))
 }
 
 $user = $_SESSION['user'];
-$imagePath = null;
+$imagePath = "";
 
 $targetDirectory = "../Images/Posts/$user";
 $imageUploader = new ImageUploader($targetDirectory);

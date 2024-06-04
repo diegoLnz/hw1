@@ -30,7 +30,7 @@ $userdataId = $row['userdata_id'];
 $result = Repository::getAll(
     $conn, 
     'follows', 
-    [new WhereCondition('follower_id', SqlOperators::EQUALS, $row['id'])]
+    [new WhereCondition('followed_user_id', SqlOperators::EQUALS, $row['id'])]
 );
 
 if(mysqli_num_rows($result) < 0)

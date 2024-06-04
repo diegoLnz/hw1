@@ -28,8 +28,10 @@ function displayUsers(users)
     usersListDiv.innerHTML = "";
 
     users.forEach(user => {
-        const userDiv = document.createElement("div");
+        const userDiv = document.createElement("a");
         userDiv.classList.add("user-item");
+
+        userDiv.href = `users.php?user=${user.username}`;
         
         userInfo = document.createElement("div");
         userInfo.classList.add("user-item-info");

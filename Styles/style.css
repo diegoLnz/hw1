@@ -462,10 +462,38 @@ header {
     background-color: #c82333;
 }
 
-.image-upload-div{
+.image-upload-div {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+}
+
+.follow-div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.custom-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: var(--custom-white);
+    color: var(--theme-color);
+    font-weight: bold;
+    font-size: small;
+    cursor: pointer;
+    border: none;
+    font-size: large;
+}
+
+.already-follows {
+    background-color: var(--theme-color);
+    color: var(--custom-white);
+    border: 1px solid var(--custom-white);
 }
 
 /*MEDIA QUERIES*/
