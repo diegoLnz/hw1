@@ -110,7 +110,7 @@ $userInfo->alreadyFollowed = mysqli_num_rows($followResult) == 1;
         <nav class="nav">
 
             <div class="logo">
-                <img id="logo" src="images/logo.png"></img>
+                <img id="logo" src="images/logo.png" onclick="window.location.href = 'index.php'"></img>
             </div>
       
             <div class="nav-menu">
