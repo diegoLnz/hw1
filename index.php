@@ -38,15 +38,7 @@ $userId = $row['id'];
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
     <script src="Scripts/Index.js"></script>
     <script src="Scripts/PostGeneration.js" defer></script>
-
-    <!--===FAVICON===-->
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
-    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <script src="Scripts/CallNasa.js" defer></script>
 
     <title>MySocialBook</title>
 </head>
@@ -154,6 +146,10 @@ $userId = $row['id'];
             </div>
         </div>
     </form>
+
+    <div class="content" id="nasa-post-container">
+
+    </div>
     
     <section class="content" id="post-container">
 

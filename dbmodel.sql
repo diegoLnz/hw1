@@ -5,6 +5,11 @@ CREATE TABLE IF NOT EXISTS images (
     file_path TEXT
 );
 
+CREATE TABLE IF NOT EXISTS nasaimages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    network_path TEXT
+);
+
 CREATE TABLE IF NOT EXISTS userdata (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name_surname VARCHAR(255),
@@ -29,6 +34,14 @@ CREATE TABLE IF NOT EXISTS posts (
     image_id INT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (image_id) REFERENCES images(id)
+);
+
+CREATE TABLE IF NOT EXISTS nasaposts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_description TEXT,
+    publish_date DATETIME,
+    image_id INT,
+    FOREIGN KEY (image_id) REFERENCES nasaimages(id)
 );
 
 CREATE TABLE IF NOT EXISTS comments (

@@ -270,6 +270,29 @@ class QueryBuilder {
         return $result;
     }
 
+    /**
+     * SQL INSERT INTO, Viene eseguita da sola senza ausilio di *get()* o *execute()*
+     * @param array $data Da passare in formato ["Column1" => "Value1", "Column2" => "Value2", ...]
+     * @return int L'ultimo id inserito
+     */
+    public function insertAndGetLastId($data): int
+    {
+        $columns = implode(',', array_keys($data));
+        $values = "'" . implode("','", array_values($data)) . "'";
+        
+        $query = "INSERT INTO $this->table($columns)
+                  VALUES ($values)";
+        
+        $result = $this->runQuery($query);
+        
+        $this->clearParams();
+        
+        if (!$result)
+            return 0;
+
+        return $this->conn->insert_id;
+    }
+
     private function runQuery($query)
     {
         try
