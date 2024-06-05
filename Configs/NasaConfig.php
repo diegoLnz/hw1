@@ -2,7 +2,7 @@
 
 class NasaConfig 
 {
-    private static string $apiKey = "pwkGmC0CilUfQDkxBNWA6mMcTDrl8C5K3oKtyVGG";
+    private static string $apiKey = "";
 
     public static function getApiKey(): string
     {
